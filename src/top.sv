@@ -4,7 +4,7 @@
 //_\SV
    // Include Tiny Tapeout Lab.
    // Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlv_lib/tiny_tapeout_lib.tlv"// Included URL: "https://raw.githubusercontent.com/os-fpga/Virtual-FPGA-Lab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlv_lib/fpga_includes.tlv"
-`line 63 "top.tlv" 1
+`line 64 "top.tlv" 1
 //_\SV
 
 // ================================================
@@ -75,7 +75,7 @@ module tt_um_template (
       assign L0_sseg_decimal_point_n_a0 = ~ uo_out[7];
       assign L0_sseg_digit_n_a0[7:0] = 8'b11111110;
    //_\end_source
-   `line 128 "top.tlv" 2
+   `line 129 "top.tlv" 2
 
    // Instantiate the Virtual FPGA Lab.
    `line 308 "/raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv" 1
@@ -139,21 +139,22 @@ module tt_um_template (
 
          //_/fpga
             `line 48 "top.tlv" 1
-               assign FpgaPins_Fpga_reset_a0 = reset;
-               assign FpgaPins_Fpga_btn_a0[3:0] = ui_in[3:0];
+               //_|stop_watchers
+                  //_@0
+                     assign FpgaPins_Fpga_STOP_WATCHERS_reset_a0 = reset;
+                     assign FpgaPins_Fpga_STOP_WATCHERS_btn_a0[3:0] = ui_in[3:0];
             
-               // instantiate clocks
-               assign FpgaPins_Fpga_clk_a0 = clk;
-               assign FpgaPins_Fpga_ssd_clk_a0 = FpgaPins_Fpga_ssd_clk_a2 ? 1'b0 : 1'b1;
+                     // instantiate clocks
+                     assign FpgaPins_Fpga_STOP_WATCHERS_clk_a0 = clk;
+                     assign FpgaPins_Fpga_STOP_WATCHERS_ssd_clk_a0 = FpgaPins_Fpga_STOP_WATCHERS_ssd_clk_a2 ? 1'b0 : 1'b1;
             
-               assign FpgaPins_Fpga_tens_a0[6:0] = 7'b0000110;
-               assign FpgaPins_Fpga_ones_a0[6:0] = 7'b1001111;
+                     assign FpgaPins_Fpga_STOP_WATCHERS_tens_a0[6:0] = 7'b0000110;
+                     assign FpgaPins_Fpga_STOP_WATCHERS_ones_a0[6:0] = 7'b1001111;
+                     assign uo_out[7:0] = FpgaPins_Fpga_STOP_WATCHERS_ssd_clk_a0 ? {1'b1, FpgaPins_Fpga_STOP_WATCHERS_tens_a0} : {1'b0, FpgaPins_Fpga_STOP_WATCHERS_ones_a0};
             
-               assign uo_out[7:0] = FpgaPins_Fpga_ssd_clk_a0 ? {1'b1, FpgaPins_Fpga_tens_a0} : {1'b0, FpgaPins_Fpga_ones_a0};
-            
-               // Connect Tiny Tapeout outputs. Note that uio_ outputs are not available in the Tiny-Tapeout-3-based FPGA boards.
-               
-               
+                     // Connect Tiny Tapeout outputs. Note that uio_ outputs are not available in the Tiny-Tapeout-3-based FPGA boards.
+                     
+                     
             //_\end_source
             `line 341 "/raw.githubusercontent.com/osfpga/VirtualFPGALab/a069f1e4e19adc829b53237b3e0b5d6763dc3194/tlvlib/fpgaincludes.tlv" 2
    
@@ -276,7 +277,7 @@ module tt_um_template (
       // pushbuttons
       
    //_\end_source
-   `line 131 "top.tlv" 2
+   `line 132 "top.tlv" 2
    // Label the switch inputs [0..7] (1..8 on the physical switch panel) (top-to-bottom).
    `line 83 "/raw.githubusercontent.com/osfpga/VirtualFPGALab/35e36bd144fddd75495d4cbc01c4fc50ac5bde6f/tlvlib/tinytapeoutlib.tlv" 1
       for (input_label = 0; input_label <= 7; input_label++) begin : L1_InputLabel //_/input_label
@@ -298,7 +299,7 @@ module tt_um_template (
 
          end
    //_\end_source
-   `line 133 "top.tlv" 2
+   `line 134 "top.tlv" 2
 
 //_\SV
 endmodule

@@ -121,7 +121,8 @@ logic FpgaPins_Fpga_ones_a0;
 logic FpgaPins_Fpga_playing_a0;
 
 // For /fpga_pins/fpga$ready.
-logic FpgaPins_Fpga_ready_a0;
+logic FpgaPins_Fpga_ready_a0,
+      FpgaPins_Fpga_ready_a1;
 
 // For /fpga_pins/fpga$reset.
 logic FpgaPins_Fpga_reset_a0;
@@ -144,6 +145,9 @@ logic FpgaPins_Fpga_tens_a0;
          // Staging of $clk_disp.
          always_ff @(posedge clk) FpgaPins_Fpga_clk_disp_a1 <= FpgaPins_Fpga_clk_disp_a0;
          always_ff @(posedge clk) FpgaPins_Fpga_clk_disp_a2 <= FpgaPins_Fpga_clk_disp_a1;
+
+         // Staging of $ready.
+         always_ff @(posedge clk) FpgaPins_Fpga_ready_a1 <= FpgaPins_Fpga_ready_a0;
 
 
 
@@ -277,7 +281,7 @@ logic FpgaPins_Fpga_tens_a0;
                
             
                // when all playing are ready (player DIP switch on and button held)
-               assign FpgaPins_Fpga_ready_a0 = FpgaPins_Fpga_reset_a0 ? 1'b0 : !(FpgaPins_Fpga_btn_a0 ^ FpgaPins_Fpga_dsw_a0);
+               assign FpgaPins_Fpga_ready_a0 = FpgaPins_Fpga_reset_a0 ? 1'b0 : FpgaPins_Fpga_ready_a1 ? 1'b1 : !(FpgaPins_Fpga_btn_a0 ^ FpgaPins_Fpga_dsw_a0);
             
                // play begins when all players ready and buttons released
                assign FpgaPins_Fpga_playing_a0 = FpgaPins_Fpga_reset_a0 ? 1'b0 : FpgaPins_Fpga_ready_a0 && (FpgaPins_Fpga_btn_a0 == 4'b0);

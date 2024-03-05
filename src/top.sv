@@ -29,18 +29,20 @@ module tt_um_template (
 );
    wire reset = !rst_n; // reset (active high)
    
+   // create clock signals
    logic clk_disp;
+   logic clk_tenths;
 
+   clkdiv4 cd0 (.clk(clk), .reset(reset), .clk_out(clk_disp));
+   clkdiv2M cd1 (.clk(clk), .reset(reset), .clk_out(clk_tenths));
+   
+   // placeholder digits to display
    logic [3:0] digit;
    logic [3:0] tens;
    logic [3:0] ones;
 
-   // placeholder digits to display
    assign tens = 4'h2;
    assign ones = 4'h3;
-   
-   // create clock signals
-   clkdiv4 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
 
    // dual seven-segment display driver
    assign digit = clk_disp ? tens : ones;
@@ -105,5 +107,26 @@ module clkdiv4 (
          clk_out <= ~clk_out;
       end
    end
+
+endmodule
+
+module clkdiv2M (
+    input logic clk,
+    input logic reset,
+    output logic clk_out,
+);
+   logic [20:0] counter;
+   parameter MAX = 2_000_000;
+
+   always_ff @ (posedge clk, posedge reset) begin
+      if (reset)
+         counter <= 0;
+      else if (counter == MAX)
+         counter <= 0;
+      else
+        counter <= counter + 1;
+   end
+
+assign clk_out = (counter == MAX);
 
 endmodule

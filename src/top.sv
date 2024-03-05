@@ -35,14 +35,15 @@ module tt_um_template (
    logic [3:0] tens;
    logic [3:0] ones;
 
+   // placeholder digits to display
    assign tens = 4'h2;
    assign ones = 4'h3;
    
    // create clock signals
    clkdiv4 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
 
+   // dual seven-segment display driver
    assign digit = clk_disp ? tens : ones;
-
    assign uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :
       digit == 4'h1 ? 7'b0000110 :
@@ -56,6 +57,25 @@ module tt_um_template (
       digit == 4'h9 ? 7'b1101111 :
                       7'b0000000};
 
+   // game logic
+   typedef enum logic [1:0] {START=0, READY=1, PLAY=2, FINISH=3} state;
+
+   always_ff @ (posedge clk, posedge reset) begin
+      if (rst) begin
+         state <= START;
+      end
+      else case (state)
+         START:   begin
+                  end
+         READY:   begin
+                  end
+         PLAY:    begin
+                  end
+         FINISH:  begin
+                  end
+      endcase
+   end
+
 endmodule
 
 module clkdiv4 (
@@ -63,7 +83,7 @@ module clkdiv4 (
    input logic reset,
    output logic clk_out,
 );
-   logic clk_int;
+   logic clk_int; // intermediate clock signal between divisions
 
    always_ff @ (posedge clk, posedge reset) begin
       if (reset) begin

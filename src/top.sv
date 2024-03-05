@@ -14,7 +14,7 @@ module top (
    logic rst_n = !reset;
 
    // instantiate the Tiny Tapeout module
-   tt_um_template tt(.*);
+   tt_um_template tt (.*);
 
    assign passed = top.cyc_cnt > 60;
    assign failed = 1'b0;
@@ -32,7 +32,7 @@ module tt_um_template (
    logic clk_disp;
    
    // create clock signals
-   clkdiv4(.clk(clk), .reset(reset), .clk_out(clk_disp));
+   clkdiv4 cd1 (.clk(clk), .reset(reset), .clk_out(clk_disp));
 
 endmodule
 

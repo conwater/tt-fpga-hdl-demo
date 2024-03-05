@@ -41,18 +41,8 @@ module clkdiv4 (
    input logic reset,
    output logic clk_out,
 );
-   logic clk_int;
 
    always_ff @ (posedge clk, posedge reset) begin
-      if (reset) begin
-         clk_int <= 0;
-      end
-      else begin
-         clk_int <= ~clk_int;
-      end
-   end
-
-   always_ff @ (posedge clk_int, posedge reset) begin
       if (reset) begin
          clk_out <= 0;
       end

@@ -73,7 +73,7 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        if (dsws[0]) begin
+                        if (dsws[0] == 1) begin
                            state <= READY;
                         end
                      end

@@ -23,9 +23,6 @@ endmodule
 module tt_um_template (
    input  wire [7:0] ui_in,    // inputs (switches)
    output wire [7:0] uo_out,   // outputs (seven-segment display)
-   input  wire [7:0] uio_in,   // bidirectional input path
-   output wire [7:0] uio_out,  // bidirectional output path
-   output wire [7:0] uio_oe,   // bidirectional enable path (active high)
    input  wire       ena,      // will go high when the design is enabled
    input  wire       clk,      // clock
    input  wire       rst_n     // reset (active low)

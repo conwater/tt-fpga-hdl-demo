@@ -28,8 +28,12 @@ module tt_um_template (
    input  wire       rst_n     // reset (active low)
 );
    wire reset = !rst_n; // reset (active high)
-   wire btns = ui_in[7:4];
-   wire dsws = ui_in[3:0];
+   
+   // assigns buttons and DIP switches
+   logic [3:0] btns;
+   logic [3:0] dsws;
+   assign btns = ui_in[7:4];
+   assign dsws = ui_in[3:0];
    
    // create clock signals
    logic clk_disp;
@@ -72,7 +76,7 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        if (0)
+                        if (dsws[0])
                            state <= READY;
                      end
             READY:   begin

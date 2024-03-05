@@ -71,6 +71,9 @@ module tt_um_template (
                         // turns off display
                         tens <= 4'hf;
                         ones <= 4'hf;
+
+                        if (ui_in[0])
+                           state <= READY;
                      end
             READY:   begin
                         // test turn on displays

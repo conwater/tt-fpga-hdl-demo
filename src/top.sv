@@ -7,9 +7,6 @@ module top (
 );
    // Tiny Tapeout I/O signals
    logic [7:0] ui_in, uo_out;
-   logic [31:0] r;  // a random value
-   always @(posedge clk) r <= 0;
-   assign ui_in = r[7:0];
    logic ena = 1'b0;
    logic rst_n = !reset;
 
@@ -76,8 +73,9 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        if (dsws[0])
+                        if (dsws[0]) begin
                            state <= READY;
+                        end
                      end
             READY:   begin
                         // test turn on displays

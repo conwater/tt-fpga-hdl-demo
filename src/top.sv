@@ -39,11 +39,11 @@ module tt_um_template (
    assign ones = 4'h3;
    
    // create clock signals
-   clkdiv2 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
+   clkdiv4 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
 
    assign digit = clk_disp ? tens : ones;
 
-   assign uo_out = {clk_disp,
+   uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :
       digit == 4'h1 ? 7'b0000110 :
       digit == 4'h2 ? 7'b1011011 :
@@ -58,13 +58,23 @@ module tt_um_template (
 
 endmodule
 
-module clkdiv2 (
+module clkdiv4 (
    input logic clk,
    input logic reset,
    output logic clk_out,
 );
+   logic clk_int;
 
    always_ff @ (posedge clk, posedge reset) begin
+      if (reset) begin
+         clk_int <= 0;
+      end
+      else begin
+         clk_int <= ~clk_int;
+      end
+   end
+
+   always_ff @ (posedge clk_int, posedge reset) begin
       if (reset) begin
          clk_out <= 0;
       end
@@ -74,4 +84,3 @@ module clkdiv2 (
    end
 
 endmodule
-   

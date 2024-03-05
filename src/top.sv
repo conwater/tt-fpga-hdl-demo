@@ -28,6 +28,8 @@ module tt_um_template (
    input  wire       rst_n     // reset (active low)
 );
    wire reset = !rst_n; // reset (active high)
+   wire btns = uo_out[7:4];
+   wire dsws = uo_out[3:0];
    
    // create clock signals
    logic clk_disp;

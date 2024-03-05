@@ -30,13 +30,35 @@ module tt_um_template (
    wire reset = !rst_n; // reset (active high)
    
    logic clk_disp;
+
+   logic [3:0] digit;
+   logic [3:0] tens;
+   logic [3:0] ones;
+
+   assign tens = 4'h2;
+   assign ones = 4'h3;
    
    // create clock signals
-   clkdiv4 cd1 (.clk(clk), .reset(reset), .clk_out(clk_disp));
+   clkdiv2 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
+
+   digit = clk_disp ? tens : ones;
+
+   uo_out = {clk_disp,
+      digit == 4'h0 ? 7'b0111111 :
+      digit == 4'h1 ? 7'b0000110 :
+      digit == 4'h2 ? 7'b1011011 :
+      digit == 4'h3 ? 7'b1001111 :
+      digit == 4'h4 ? 7'b1100110 :
+      digit == 4'h5 ? 7'b1101101 :
+      digit == 4'h6 ? 7'b1111101 :
+      digit == 4'h7 ? 7'b0000111 :
+      digit == 4'h8 ? 7'b1111111 :
+      digit == 4'h9 ? 7'b1101111 :
+                      7'b0000000};
 
 endmodule
 
-module clkdiv4 (
+module clkdiv2 (
    input logic clk,
    input logic reset,
    output logic clk_out,

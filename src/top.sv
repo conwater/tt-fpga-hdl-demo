@@ -28,4 +28,6 @@ module tt_um_template (
    input  wire       rst_n     // reset (active low)
 );
    wire reset = !rst_n; // reset (active high)
+
+   assign uo_out = 8'b11111111;
 endmodule

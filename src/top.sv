@@ -72,7 +72,7 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        if (ui_in[0])
+                        if (0)
                            state <= READY;
                      end
             READY:   begin

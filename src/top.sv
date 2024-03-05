@@ -60,20 +60,22 @@ module tt_um_template (
    // game logic
    typedef enum logic [1:0] {START=0, READY=1, PLAY=2, FINISH=3} state;
 
-   always_ff @ (posedge clk, posedge reset) begin
+   always_ff @ (posedge clk or posedge reset) begin
       if (reset) begin
          state <= START;
       end
-      else case (state)
-         START:   begin
-                  end
-         READY:   begin
-                  end
-         PLAY:    begin
-                  end
-         FINISH:  begin
-                  end
-      endcase
+      else begin
+         case (state)
+            START:   begin
+                     end
+            READY:   begin
+                     end
+            PLAY:    begin
+                     end
+            FINISH:  begin
+                     end
+         endcase
+      end
    end
 
 endmodule

@@ -32,7 +32,7 @@ module tt_um_template (
    logic clk_disp;
    
    // create clock signals
-   clkdiv4 (.clk(clk), .reset(reset), .clk_out(clk_disp));
+   clkdiv4(.clk(clk), .reset(reset), .clk_out(clk_disp));
 
 endmodule
 

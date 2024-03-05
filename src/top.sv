@@ -73,7 +73,7 @@ module tt_um_template (
                         ones <= 4'hf;
 
                         // when playing and readied up (switch on, button held)
-                        if (btns ~^ dsws) begin
+               if (btns[0]) begin
                            state <= READY;
                         end
                      end

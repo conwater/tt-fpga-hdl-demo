@@ -41,7 +41,7 @@ module tt_um_template (
    // create clock signals
    clkdiv2 cd (.clk(clk), .reset(reset), .clk_out(clk_disp));
 
-   digit = clk_disp ? tens : ones;
+   assign digit = clk_disp ? tens : ones;
 
    uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :

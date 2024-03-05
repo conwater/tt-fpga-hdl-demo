@@ -43,7 +43,7 @@ module tt_um_template (
 
    assign digit = clk_disp ? tens : ones;
 
-   uo_out = {clk_disp,
+   assign uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :
       digit == 4'h1 ? 7'b0000110 :
       digit == 4'h2 ? 7'b1011011 :

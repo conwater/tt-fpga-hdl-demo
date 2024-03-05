@@ -37,16 +37,12 @@ module tt_um_template (
 
    clkdiv4 cd0 (.clk(clk), .reset(reset), .clk_out(clk_disp));
    clkdiv2M cd1 (.clk(clk), .reset(reset), .clk_out(clk_tenths));
-   
-   // placeholder digits to display
+
+   // dual seven-segment display driver
    logic [3:0] digit;
    logic [3:0] tens;
    logic [3:0] ones;
-
-   assign tens = 4'h2;
-   assign ones = 4'h3;
-
-   // dual seven-segment display driver
+   
    assign digit = clk_disp ? tens : ones;
    assign uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :
@@ -72,8 +68,18 @@ module tt_um_template (
       else begin
          case (state)
             START:   begin
+                        // turns off display
+                        tens <= 4'hf;
+                        ones <= 4'hf;
+
+                        // when playing and readied up (switch on, button held)
+                        if (!(btns ^ dsws))
+                           state <= READY;
                      end
             READY:   begin
+                        // test turn on displays
+                        tens <= 4'h1;
+                        ones <= 4'h1;
                      end
             PLAY:    begin
                      end
@@ -93,21 +99,17 @@ module clkdiv4 (
    logic clk_int; // intermediate clock signal between divisions
 
    always_ff @ (posedge clk, posedge reset) begin
-      if (reset) begin
+      if (reset)
          clk_int <= 0;
-      end
-      else begin
+      else
          clk_int <= ~clk_int;
-      end
    end
 
    always_ff @ (posedge clk_int, posedge reset) begin
-      if (reset) begin
+      if (reset)
          clk_out <= 0;
-      end
-      else begin
+      else
          clk_out <= ~clk_out;
-      end
    end
 
 endmodule

@@ -42,7 +42,7 @@ module tt_um_template (
    logic [3:0] digit;
    logic [3:0] tens;
    logic [3:0] ones;
-   
+
    assign digit = clk_disp ? tens : ones;
    assign uo_out = {clk_disp,
       digit == 4'h0 ? 7'b0111111 :
@@ -73,8 +73,9 @@ module tt_um_template (
                         ones <= 4'hf;
 
                         // when playing and readied up (switch on, button held)
-                        if (btns ~^ dsws)
+                        if (btns ~^ dsws) begin
                            state <= READY;
+                        end
                      end
             READY:   begin
                         // test turn on displays

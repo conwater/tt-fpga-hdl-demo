@@ -1,9 +1,9 @@
 module top (
-   input logic        clk, 
-   input logic        reset, 
-   input logic [31:0] cyc_cnt, 
-   output logic       passed, 
-   output logic       failed
+   input  logic        clk, 
+   input  logic        reset, 
+   input  logic [31:0] cyc_cnt, 
+   output logic        passed, 
+   output logic        failed
 );
    // Tiny Tapeout I/O signals
    logic [7:0] ui_in, uo_out;
@@ -21,13 +21,13 @@ module top (
 endmodule
 
 module tt_um_template (
-   input  wire [7:0] ui_in,    // inputs (switches)
-   output wire [7:0] uo_out,   // outputs (seven-segment display)
-   input  wire       ena,      // will go high when the design is enabled
-   input  wire       clk,      // clock
-   input  wire       rst_n     // reset (active low)
+   input  logic [7:0] ui_in,    // inputs (switches)
+   output logic [7:0] uo_out,   // outputs (seven-segment display)
+   input  logic       ena,      // will go high when the design is enabled
+   input  logic       clk,      // clock
+   input  logic       rst_n     // reset (active low)
 );
-   wire reset = !rst_n; // reset (active high)
+   logic reset = !rst_n; // reset (active high)
    
    // assigns buttons and DIP switches
    logic [3:0] btns;

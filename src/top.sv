@@ -61,7 +61,7 @@ module tt_um_template (
    typedef enum logic [1:0] {START=0, READY=1, PLAY=2, FINISH=3} state;
 
    always_ff @ (posedge clk, posedge reset) begin
-      if (rst) begin
+      if (reset) begin
          state <= START;
       end
       else case (state)

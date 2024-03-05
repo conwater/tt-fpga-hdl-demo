@@ -72,8 +72,7 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        // when playing and readied up (switch on, button held)
-                        if (btns[0]) begin
+                        if (!btns[0]) begin
                            state <= READY;
                         end
                      end

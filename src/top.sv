@@ -1,22 +1,3 @@
-module top (
-   input  logic        clk, 
-   input  logic        reset, 
-   input  logic [31:0] cyc_cnt, 
-   output logic        passed, 
-   output logic        failed
-);
-   // Tiny Tapeout I/O signals
-   logic [7:0] ui_in, uo_out;
-   logic ena = 1'b0;
-   logic rst_n = !reset;
-
-   // instantiate the Tiny Tapeout module
-   tt_um_template tt (.*);
-
-   assign passed = top.cyc_cnt > 60;
-   assign failed = 1'b0;
-endmodule
-
 module tt_um_template (
    input  logic [7:0] ui_in,    // inputs (switches)
    output logic [7:0] uo_out,   // outputs (seven-segment display)
@@ -73,7 +54,10 @@ module tt_um_template (
                         tens <= 4'hf;
                         ones <= 4'hf;
 
-                        if (dsws[0] == 0) begin
+                        // for some reason it's reading 
+                        // this DIP switch as on always
+                        // and going right into READY state
+                        if (0) begin 
                            state <= READY;
                         end
                      end

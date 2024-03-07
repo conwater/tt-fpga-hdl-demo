@@ -134,7 +134,8 @@ logic [3:0] FpgaPins_Fpga_TIME_ones_a0,
             FpgaPins_Fpga_TIME_ones_a1;
 
 // For /fpga_pins/fpga|time$p1_ans.
-logic [7:0] FpgaPins_Fpga_TIME_p1_ans_a0;
+logic [7:0] FpgaPins_Fpga_TIME_p1_ans_a0,
+            FpgaPins_Fpga_TIME_p1_ans_a1;
 
 // For /fpga_pins/fpga|time$p1_score.
 logic [7:0] FpgaPins_Fpga_TIME_p1_score_a0,
@@ -145,7 +146,8 @@ logic FpgaPins_Fpga_TIME_p1_sub_a0,
       FpgaPins_Fpga_TIME_p1_sub_a1;
 
 // For /fpga_pins/fpga|time$p2_ans.
-logic [7:0] FpgaPins_Fpga_TIME_p2_ans_a0;
+logic [7:0] FpgaPins_Fpga_TIME_p2_ans_a0,
+            FpgaPins_Fpga_TIME_p2_ans_a1;
 
 // For /fpga_pins/fpga|time$p2_score.
 logic [7:0] FpgaPins_Fpga_TIME_p2_score_a0,
@@ -223,11 +225,17 @@ logic [1:0] FpgaPins_Fpga_TIME_winner_a0,
             // Staging of $ones.
             always_ff @(posedge clk) FpgaPins_Fpga_TIME_ones_a1[3:0] <= FpgaPins_Fpga_TIME_ones_a0[3:0];
 
+            // Staging of $p1_ans.
+            always_ff @(posedge clk) FpgaPins_Fpga_TIME_p1_ans_a1[7:0] <= FpgaPins_Fpga_TIME_p1_ans_a0[7:0];
+
             // Staging of $p1_score.
             always_ff @(posedge clk) FpgaPins_Fpga_TIME_p1_score_a1[7:0] <= FpgaPins_Fpga_TIME_p1_score_a0[7:0];
 
             // Staging of $p1_sub.
             always_ff @(posedge clk) FpgaPins_Fpga_TIME_p1_sub_a1 <= FpgaPins_Fpga_TIME_p1_sub_a0;
+
+            // Staging of $p2_ans.
+            always_ff @(posedge clk) FpgaPins_Fpga_TIME_p2_ans_a1[7:0] <= FpgaPins_Fpga_TIME_p2_ans_a0[7:0];
 
             // Staging of $p2_score.
             always_ff @(posedge clk) FpgaPins_Fpga_TIME_p2_score_a1[7:0] <= FpgaPins_Fpga_TIME_p2_score_a0[7:0];
@@ -470,11 +478,11 @@ logic [1:0] FpgaPins_Fpga_TIME_winner_a0,
                      assign FpgaPins_Fpga_TIME_p1_ans_a0[7:0] =
                         FpgaPins_Fpga_TIME_reset_a0 || (FpgaPins_Fpga_TIME_btn_a0 == 4'd2) ? 8'd0 :
                         FpgaPins_Fpga_TIME_p1_sub_a0 && (FpgaPins_Fpga_TIME_p1_sub_a1 == 0) ? {FpgaPins_Fpga_TIME_tens_a0[3:0],FpgaPins_Fpga_TIME_ones_a0[3:0]} :
-                        8'd0;
+                        FpgaPins_Fpga_TIME_p1_ans_a1;
                      assign FpgaPins_Fpga_TIME_p2_ans_a0[7:0] =
                         FpgaPins_Fpga_TIME_reset_a0 || (FpgaPins_Fpga_TIME_btn_a0 == 4'd2) ? 8'd0 :
                         FpgaPins_Fpga_TIME_p2_sub_a0 && (FpgaPins_Fpga_TIME_p2_sub_a1 == 0) ? {FpgaPins_Fpga_TIME_tens_a0[3:0],FpgaPins_Fpga_TIME_ones_a0[3:0]} :
-                        8'd0;
+                        FpgaPins_Fpga_TIME_p2_ans_a1;
                      //determines a players score, calculates how far off a player was
                      assign FpgaPins_Fpga_TIME_p1_score_a0[7:0] =
                         FpgaPins_Fpga_TIME_reset_a0 || (FpgaPins_Fpga_TIME_btn_a0 == 4'd2) ? 8'd0 :

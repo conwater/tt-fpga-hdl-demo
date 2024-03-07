@@ -8,10 +8,10 @@ module tt_um_template (
    logic reset = !rst_n; // reset (active high)
    
    // assigns buttons and DIP switches
-   logic [3:0] btns;
-   logic [3:0] dsws;
-   assign btns = ui_in[7:4];
-   assign dsws = ui_in[3:0];
+   //logic [3:0] btns;
+   //logic [3:0] dsws;
+   //assign btns = ui_in[7:4];
+   //assign dsws = ui_in[3:0];
    
    // create clock signals
    logic clk_disp;
@@ -57,7 +57,7 @@ module tt_um_template (
                         // for some reason it's reading 
                         // this DIP switch as on always
                         // and going right into READY state
-                        if (0) begin 
+                        if (ui_in[0]) begin 
                            state <= READY;
                         end
                      end
